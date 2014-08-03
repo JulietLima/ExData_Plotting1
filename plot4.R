@@ -20,7 +20,8 @@ data[,Sub_metering_2:=as.double(Sub_metering_2)]
 data[,Sub_metering_3:=as.double(Sub_metering_3)]
 
 ## Code for plotting
-par(mfcol=c(2,2), ps=12, pin=c(5,5), mar = c(2,4,1,1))
+png(file = "./plot4.png")
+par(mfcol=c(2,2), ps=12, pin=c(5,5), mar = c(4,4,1,1))
 
 # First plot is similar to plot2
 plot(data$datetime, data$Global_active_power, type="n",
@@ -36,7 +37,7 @@ lines(data$datetime, data$Sub_metering_2, col="red")
 lines(data$datetime, data$Sub_metering_3, col="blue")
 legend("topright", col = c("black", "red","blue"), 
        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
-       lty=c(1,1,1), bty="n")
+       lty=c(1,1,1), bty="n", y.intersp=0.75)
 
 # Third plot (first row, 2nd column)
 plot(data$datetime, data$Voltage, type = "n",
@@ -51,5 +52,4 @@ with(data, {
 
 
 #Output
-dev.copy(png, file = "./plot4.png")
 dev.off()
