@@ -21,10 +21,11 @@ data[,Sub_metering_3:=as.double(Sub_metering_3)]
 
 
 ## Code for plotting
-par(mar=c(3,1,2,1), ps=12, pin=c(5,5))
-hist(data$Global_active_power, col="Red", main = "Global Active Power", 
-     xlab="Global Active Power (kilowatts)", yaxt="n")
-axis(2,at=c(0,200,400,600,800,1000,1200))
+par(mar=c(1,1,2,1), ps=12, pin=c(5,5))
+plot(data$datetime, data$Global_active_power, type="n",
+     ylab = "Global Active Power (kilowatts)", xlab="")
+lines(data$datetime, data$Global_active_power)
+
 #Output
-dev.copy(png, file = "./plot1.png")
+dev.copy(png, file = "./plot2.png")
 dev.off()
