@@ -19,9 +19,15 @@ data[,Sub_metering_1:=as.double(Sub_metering_1)]
 data[,Sub_metering_2:=as.double(Sub_metering_2)]
 data[,Sub_metering_3:=as.double(Sub_metering_3)]
 
-
 ## Code for plotting
-par(mar=c(1,1,2,1), ps=12, pin=c(5,5))
+par(mfcol=c(2,2), ps=12, pin=c(5,5), mar = c(2,4,1,1))
+
+# First plot is similar to plot2
+plot(data$datetime, data$Global_active_power, type="n",
+     ylab = "Global Active Power", xlab="")
+lines(data$datetime, data$Global_active_power)
+
+# Second plot(down the column) is similar to plot3
 plot(data$datetime, data$Global_active_power, type="n",
      ylab = "Energy sub metering", xlab="", ylim=c(0,39), yaxt="n")
 axis(2,at=c(0,10,20,30))
@@ -30,8 +36,20 @@ lines(data$datetime, data$Sub_metering_2, col="red")
 lines(data$datetime, data$Sub_metering_3, col="blue")
 legend("topright", col = c("black", "red","blue"), 
        legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"),
-       lty=c(1,1,1))
+       lty=c(1,1,1), bty="n")
+
+# Third plot (first row, 2nd column)
+plot(data$datetime, data$Voltage, type = "n",
+     ylab = "Voltage", xlab="datetime")
+lines(data$datetime, data$Voltage)
+
+# Final plot
+with(data, {
+    plot(datetime, Global_reactive_power, type = "n")
+    lines(datetime, Global_reactive_power)
+    })
+
 
 #Output
-dev.copy(png, file = "./plot3.png")
+dev.copy(png, file = "./plot4.png")
 dev.off()
